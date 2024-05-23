@@ -62,7 +62,7 @@ Run tests on your project code (defaults to `web/modules/custom`, [configurable]
 
 - Optional: [Install the ddev-selenium-standalone-chrome extension for FunctionalJavascript and Nightwatch tests](https://github.com/ddev/ddev-selenium-standalone-chrome).
 - Optional: [Install the ddev-mkdocs extension for local preview of your docs site](https://github.com/nireneko/ddev-mkdocs). Drupal.org's Gitlab CI can [automatically publish your site](https://project.pages.drupalcode.org/gitlab_templates/jobs/pages/).
-- Optional. Commit the changes in the `.ddev` folder after this plugin installs. This saves other users from having to install this integration.
+- Optional. Commit the changes in the `.ddev` folder after this plugin installs. This saves other users from having to install this integration. Note: Committing the .ddev/.gitattributes file provided by this addon will tell Drupal package management to exclude the contents of .ddev/ when generating tarballs and composer packages.
 - If you add/remove a root file or directory, re-symlink root files via EITHER of these methods
   - `ddev restart`
   - `ddev symlink-project`
