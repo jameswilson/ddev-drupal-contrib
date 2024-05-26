@@ -50,6 +50,7 @@ This project provides the following DDEV container commands.
 - `ddev phpstan`. Run [phpstan](https://phpstan.org) on project files.
 - `ddev eslint` Run [ESLint](https://github.com/eslint/eslint) on JavaScript files.
 - `ddev stylelint` Run [Stylelint](https://github.com/stylelint/stylelint) on CSS files.
+- `ddev cspell` Run [Cspell](https://cspell.org/).
 - `ddev core-version`. Update your codebase to a newer or older version of Drupal core. [More info](#changing-the-drupal-core-version).
 
 ## Codebase layout
