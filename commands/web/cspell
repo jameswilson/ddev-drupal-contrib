@@ -30,8 +30,7 @@ if $CSPELL --version >/dev/null ; then
   export CI_PROJECT_NAME="$DDEV_SITENAME"
   export _WEB_ROOT="$DDEV_COMPOSER_ROOT/$DDEV_DOCROOT"
   export _CSPELL_IGNORE_PATHS="$DDEV_DOCROOT,.ddev"
-  touch .cspell.json.ddev
-  php prepare-cspell.php .ddev
+  php prepare-cspell.php -s .ddev
   rm prepare-cspell.php
 
   # The cspell `-c` argument requires the filename to end in json.
