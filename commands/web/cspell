@@ -11,6 +11,11 @@
 CSPELL="$DDEV_COMPOSER_ROOT/$DDEV_DOCROOT/core/node_modules/.bin/cspell"
 if $CSPELL --version >/dev/null ; then
 
+  if [ "$@" == "--version" ]; then
+    $CSPELL --version
+    exit $?
+  fi
+
   # Create required cspell files and note whether they're temporary, for
   # clean-up later.
   TMP_PROJECT_WORDS=$(test -e .cspell-project-words.txt ; echo $?)

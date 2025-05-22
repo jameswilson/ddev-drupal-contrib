@@ -48,4 +48,5 @@ teardown_file() {
   ddev mutagen sync
   ddev stylelint --version
   ddev eslint --version
+  ddev cspell --version
 }
