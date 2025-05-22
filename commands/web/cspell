@@ -5,7 +5,6 @@
 ## Description: Run cspell inside the web container
 ## Usage: cspell [flags] [args]
 ## Example: "ddev cspell" or "ddev cspell --version"
-## ProjectTypes: drupal,drupal8,drupal9,drupal10
 ## ExecRaw: true
 
 
