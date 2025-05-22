@@ -42,6 +42,6 @@ if $CSPELL --version >/dev/null ; then
   [ "$TMP_DICTIONARY" == "1" ] && rm $_CSPELL_DICTIONARY || true
   [ "$TMP_CONFIG" == "1" ] && rm .cspell.json || true
 else
-  echo "cspell is not available. You may need to 'ddev yarn --cwd $DDEV_DOCROOT/core install'"
+  echo "cspell is not available. You may need to 'ddev exec \"cd $DDEV_DOCROOT/core && yarn install\"'"
   exit 1
 fi
