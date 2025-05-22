@@ -7,11 +7,16 @@
 ## Example: "ddev cspell" or "ddev cspell --version"
 ## ExecRaw: true
 
+# Set up environment variables for the cspell configuration generator.
+# These variables are used by the prepare-cspell.php script to customize
+# the spell checking configuration for this Drupal project. These variables
+# may be personalized in the .ddev/config.yaml file.
 export CI_PROJECT_NAME="$DDEV_SITENAME"
 export _WEB_ROOT="$DDEV_COMPOSER_ROOT/$DDEV_DOCROOT"
 export _CSPELL_DICTIONARY=${_CSPELL_DICTIONARY:-.cspell-project-words.txt}
 export _CSPELL_IGNORE_PATHS=${_CSPELL_IGNORE_PATHS:-"$DDEV_DOCROOT,.ddev,config/sync"}
 
+# Check if cspell is installed in the Drupal core node_modules.
 CSPELL="$DDEV_COMPOSER_ROOT/$DDEV_DOCROOT/core/node_modules/.bin/cspell"
 if [ "$1" = "--version" ]; then
   $CSPELL --version
@@ -26,14 +31,16 @@ if $CSPELL --version >/dev/null ; then
   touch $_CSPELL_DICTIONARY
   test -e .cspell.json || curl -OLs https://git.drupalcode.org/project/gitlab_templates/-/raw/default-ref/assets/.cspell.json
 
-  # Augment .cspell.json for Drupal so it can be restored to its pristine
-  # state after spellcheck. Passing '.ddev' to the prepare script stores
-  # output to .cspell.json.ddev to avoid overwriting the original file.
+  # Download and run the Drupal-specific cspell configuration generator.
+  # This script creates a temporary config file (.cspell.json.ddev) to avoid
+  # modifying any existing .cspell.json in the project.
   curl -OLs https://git.drupalcode.org/project/gitlab_templates/-/raw/default-ref/scripts/prepare-cspell.php
   php prepare-cspell.php -s .ddev
   rm prepare-cspell.php
 
-  # The cspell `-c` argument requires the filename to end in json.
+  # Rename the temporary config file to match cspell's requirement that
+  # configuration files must end in .json, then run the spell checker
+  # with suggestions and context enabled.
   mv -f .cspell.json.ddev .cspell.ddev.json
   $CSPELL -c .cspell.ddev.json --show-suggestions --show-context --no-progress ** "$@"
 
