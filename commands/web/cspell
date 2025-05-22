@@ -7,7 +7,10 @@
 ## Example: "ddev cspell" or "ddev cspell --version"
 ## ExecRaw: true
 
+export CI_PROJECT_NAME="$DDEV_SITENAME"
+export _WEB_ROOT="$DDEV_COMPOSER_ROOT/$DDEV_DOCROOT"
 export _CSPELL_DICTIONARY=${_CSPELL_DICTIONARY:-.cspell-project-words.txt}
+export _CSPELL_IGNORE_PATHS=${_CSPELL_IGNORE_PATHS:-"$DDEV_DOCROOT,.ddev,config/sync"}
 
 CSPELL="$DDEV_COMPOSER_ROOT/$DDEV_DOCROOT/core/node_modules/.bin/cspell"
 if [ "$1" = "--version" ]; then
@@ -27,9 +30,6 @@ if $CSPELL --version >/dev/null ; then
   # state after spellcheck. Passing '.ddev' to the prepare script stores
   # output to .cspell.json.ddev to avoid overwriting the original file.
   curl -OLs https://git.drupalcode.org/project/gitlab_templates/-/raw/default-ref/scripts/prepare-cspell.php
-  export CI_PROJECT_NAME="$DDEV_SITENAME"
-  export _WEB_ROOT="$DDEV_COMPOSER_ROOT/$DDEV_DOCROOT"
-  export _CSPELL_IGNORE_PATHS="$DDEV_DOCROOT,.ddev"
   php prepare-cspell.php -s .ddev
   rm prepare-cspell.php
 
