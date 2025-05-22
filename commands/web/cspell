@@ -39,8 +39,8 @@ if $CSPELL --version >/dev/null ; then
 
   # Clean-up temporary cspell files.
   rm .cspell.ddev.json
-  [ "$TMP_DICTIONARY" == "1" ] && rm $_CSPELL_DICTIONARY
-  [ "$TMP_CONFIG" == "1" ] && rm .cspell.json
+  [ "$TMP_DICTIONARY" == "1" ] && rm $_CSPELL_DICTIONARY || true
+  [ "$TMP_CONFIG" == "1" ] && rm .cspell.json || true
 else
   echo "cspell is not available. You may need to 'ddev yarn --cwd $DDEV_DOCROOT/core install'"
   exit 1
