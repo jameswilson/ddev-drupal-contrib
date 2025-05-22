@@ -7,6 +7,7 @@
 ## Example: "ddev cspell" or "ddev cspell --version"
 ## ExecRaw: true
 
+export _CSPELL_DICTIONARY=${_CSPELL_DICTIONARY:-.cspell-project-words.txt}
 
 CSPELL="$DDEV_COMPOSER_ROOT/$DDEV_DOCROOT/core/node_modules/.bin/cspell"
 if [ "$1" = "--version" ]; then
@@ -14,6 +15,7 @@ if [ "$1" = "--version" ]; then
   exit $?
 fi
 if $CSPELL --version >/dev/null ; then
+
   # Initialize required configuration files if they don't exist.
   # Track which files we create so we can clean them up later.
   TMP_DICTIONARY=$(test -e $_CSPELL_DICTIONARY ; echo $?)
@@ -38,8 +40,8 @@ if $CSPELL --version >/dev/null ; then
 
   # Clean-up temporary cspell files.
   rm .cspell.ddev.json
-  [ "$TMP_PROJECT_WORDS" == "1" ] && rm .cspell-project-words.txt
-  [ "$TMP_CSPELL" == "1" ] && rm .cspell.json
+  [ "$TMP_DICTIONARY" == "1" ] && rm $_CSPELL_DICTIONARY
+  [ "$TMP_CONFIG" == "1" ] && rm .cspell.json
 else
   echo "cspell is not available. You may need to 'ddev yarn --cwd $DDEV_DOCROOT/core install'"
   exit 1
